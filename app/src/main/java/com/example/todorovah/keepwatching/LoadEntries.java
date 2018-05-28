@@ -1,6 +1,7 @@
 package com.example.todorovah.keepwatching;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,12 +13,20 @@ import android.view.MenuItem;
 
 public class LoadEntries extends AppCompatActivity {
 
+    public static final String DATABASE_NAME = "notes";
+
+    SQLiteDatabase myDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_entries);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        myDatabase = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
+        createMoviesTable();
+        createTvShowsTable();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -26,6 +35,28 @@ public class LoadEntries extends AppCompatActivity {
                 startActivity(new Intent(view.getContext(), AddNewRecord.class));
             }
         });
+    }
+
+    private void createMoviesTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS movies (\n" +
+                "    id INTEGER NOT NULL CONSTRAINT movies_pk PRIMARY KEY AUTOINCREMENT,\n" +
+                "    title varchar(255) NOT NULL,\n" +
+                "    timestamp datetime NOT NULL,\n" +
+                "    notes varchar(255) NULL\n" +
+                ");";
+
+        myDatabase.execSQL(sql);
+    }
+
+    private void createTvShowsTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS tv_shows (\n" +
+                "    id INTEGER NOT NULL CONSTRAINT tv_shows_pk PRIMARY KEY AUTOINCREMENT,\n" +
+                "    title varchar(255) NOT NULL,\n" +
+                "    timestamp datetime NOT NULL,\n" +
+                "    notes varchar(255) NULL\n" +
+                ");";
+
+        myDatabase.execSQL(sql);
     }
 
     @Override
