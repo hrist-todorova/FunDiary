@@ -36,6 +36,7 @@
         app:layout_constraintTop_toBottomOf="@+id/radioGroup">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/notesInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Notes" />
@@ -54,6 +55,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/titleInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Title" />
