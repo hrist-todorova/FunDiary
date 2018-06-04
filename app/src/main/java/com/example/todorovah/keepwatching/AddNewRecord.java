@@ -15,7 +15,6 @@ import java.util.Calendar;
 
 public class AddNewRecord extends AppCompatActivity implements View.OnClickListener {
 
-    public static final String DATABASE_NAME = "notes";
     SQLiteDatabase myDatabase;
     Button saveButton;
     RadioGroup radioGroup;
@@ -38,7 +37,7 @@ public class AddNewRecord extends AppCompatActivity implements View.OnClickListe
         titleText = findViewById(R.id.titleInput);
         notesText = findViewById(R.id.notesInput);
 
-        myDatabase = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
+        myDatabase = openOrCreateDatabase(LoadEntries.DATABASE_NAME, MODE_PRIVATE, null);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -72,6 +71,8 @@ public class AddNewRecord extends AppCompatActivity implements View.OnClickListe
 
         }
 
+        titleText.getText().clear();
+        notesText.getText().clear();
     }
 
 
