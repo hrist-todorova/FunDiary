@@ -17,6 +17,11 @@ public class DisplayEntry extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        String entryName = getIntent().getStringExtra(LoadEntries.ENTRY_NAME);
+        return;
     }
+
+
 
 }

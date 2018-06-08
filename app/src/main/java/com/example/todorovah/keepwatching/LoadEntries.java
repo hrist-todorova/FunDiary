@@ -18,6 +18,9 @@ import android.widget.ListView;
 public class LoadEntries extends AppCompatActivity {
 
     public static final String DATABASE_NAME = "notes";
+    public static final String ENTRY_NAME = "ENTRY_NAME";
+    public static final String ENTRY_TIMESTAMP = "ENTRY_TIMESTAMP";
+    public static final String ENTRY_NOTES = "ENTRY_NOTES";
 
     SQLiteDatabase myDatabase;
     ListView myListView;
@@ -71,9 +74,9 @@ public class LoadEntries extends AppCompatActivity {
         myListView = findViewById(R.id.contentsListView);
 
         final ArrayList<String> contentList = new ArrayList<>();
-        String sql = "SELECT title, timestamp, notes FROM " +
-                "(SELECT title, timestamp, notes FROM tv_shows UNION " +
-                "SELECT title, timestamp, notes FROM movies) AS entries ORDER BY title ASC";
+        String sql = "SELECT title FROM " +
+                "(SELECT title FROM tv_shows UNION " +
+                "SELECT title FROM movies) AS entries ORDER BY title ASC";
         Cursor cursor = myDatabase.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             do {
@@ -87,7 +90,13 @@ public class LoadEntries extends AppCompatActivity {
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String object =  contentList.get(i);
+
+                // query the database
+                // send all fields as parameters
+
+                Intent intent = new Intent(view.getContext(), DisplayEntry.class);
+                intent.putExtra(ENTRY_NAME, contentList.get(i));
+                startActivity(intent);
                 return;
             }
         });
