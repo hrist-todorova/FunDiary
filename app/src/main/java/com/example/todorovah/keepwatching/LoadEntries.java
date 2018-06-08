@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 import android.widget.ListView;
@@ -32,8 +33,6 @@ public class LoadEntries extends AppCompatActivity {
         myDatabase = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
         createMoviesTable();
         createTvShowsTable();
-
-        myListView = findViewById(R.id.contentsListView);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -69,21 +68,31 @@ public class LoadEntries extends AppCompatActivity {
     }
 
     private void getAllEntries() {
-        ArrayList<String> moviesList = new ArrayList<>();
-        listAdapter = new ArrayAdapter<>(this, R.layout.database_entry_view, moviesList);
+        myListView = findViewById(R.id.contentsListView);
 
+        final ArrayList<String> contentList = new ArrayList<>();
         String sql = "SELECT title, timestamp, notes FROM " +
                 "(SELECT title, timestamp, notes FROM tv_shows UNION " +
                 "SELECT title, timestamp, notes FROM movies) AS entries ORDER BY title ASC";
         Cursor cursor = myDatabase.rawQuery(sql, null);
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             do {
-                listAdapter.add(cursor.getString(0));
-            } while(cursor.moveToNext());
+                contentList.add(cursor.getString(0));
+            } while (cursor.moveToNext());
         }
 
+        listAdapter = new ArrayAdapter<>(this, R.layout.database_entry_view, contentList);
         myListView.setAdapter(listAdapter);
+
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String object =  contentList.get(i);
+                return;
+            }
+        });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
