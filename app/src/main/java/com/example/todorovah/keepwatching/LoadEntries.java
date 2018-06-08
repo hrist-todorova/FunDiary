@@ -72,7 +72,9 @@ public class LoadEntries extends AppCompatActivity {
         ArrayList<String> moviesList = new ArrayList<>();
         listAdapter = new ArrayAdapter<>(this, R.layout.database_entry_view, moviesList);
 
-        String sql = "SELECT title, timestamp, notes FROM tv_shows;";
+        String sql = "SELECT title, timestamp, notes FROM " +
+                "(SELECT title, timestamp, notes FROM tv_shows UNION " +
+                "SELECT title, timestamp, notes FROM movies) AS entries ORDER BY title ASC";
         Cursor cursor = myDatabase.rawQuery(sql, null);
         if(cursor.moveToFirst()) {
             do {
