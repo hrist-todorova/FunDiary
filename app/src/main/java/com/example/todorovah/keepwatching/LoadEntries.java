@@ -21,6 +21,7 @@ public class LoadEntries extends AppCompatActivity {
     public static final String ENTRY_TITLE = "ENTRY_TITLE";
     public static final String ENTRY_TIMESTAMP = "ENTRY_TIMESTAMP";
     public static final String ENTRY_NOTES = "ENTRY_NOTES";
+    public static final String ENTRY_ID = "ENTRY_ID";
 
     SQLiteDatabase myDatabase;
     ListView myListView;
@@ -73,18 +74,20 @@ public class LoadEntries extends AppCompatActivity {
     private void getAllEntries() {
         myListView = findViewById(R.id.contentsListView);
 
+        final ArrayList<Integer> idsList = new ArrayList<>();
         final ArrayList<String> titlesList = new ArrayList<>();
         final ArrayList<String> timestampList = new ArrayList<>();
         final ArrayList<String> notesList = new ArrayList<>();
-        String sql = "SELECT title, timestamp, notes FROM " +
-                "(SELECT title, timestamp, notes FROM tv_shows UNION " +
-                "SELECT title, timestamp, notes FROM movies) AS entries ORDER BY title ASC";
+        String sql = "SELECT id, title, timestamp, notes FROM " +
+                "(SELECT id, title, timestamp, notes FROM tv_shows UNION " +
+                "SELECT id, title, timestamp, notes FROM movies) AS entries ORDER BY title ASC";
         Cursor cursor = myDatabase.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             do {
-                titlesList.add(cursor.getString(0));
-                timestampList.add(cursor.getString(1));
-                notesList.add(cursor.getString(2));
+                idsList.add(cursor.getInt(0));
+                titlesList.add(cursor.getString(1));
+                timestampList.add(cursor.getString(2));
+                notesList.add(cursor.getString(3));
             } while (cursor.moveToNext());
         }
 
@@ -98,6 +101,7 @@ public class LoadEntries extends AppCompatActivity {
                 intent.putExtra(ENTRY_TITLE, titlesList.get(i));
                 intent.putExtra(ENTRY_TIMESTAMP, timestampList.get(i));
                 intent.putExtra(ENTRY_NOTES, notesList.get(i));
+                intent.putExtra(ENTRY_ID, idsList.get(i));
                 startActivity(intent);
                 return;
             }
