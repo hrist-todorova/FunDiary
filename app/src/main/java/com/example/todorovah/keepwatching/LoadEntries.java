@@ -35,8 +35,7 @@ public class LoadEntries extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         myDatabase = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
-        createMoviesTable();
-        createTvShowsTable();
+        createEntryTable();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -49,21 +48,11 @@ public class LoadEntries extends AppCompatActivity {
         getAllEntries();
     }
 
-    private void createMoviesTable() {
-        String sql = "CREATE TABLE IF NOT EXISTS movies (\n" +
+    private void createEntryTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS entry (\n" +
                 "    id INTEGER NOT NULL CONSTRAINT movies_pk PRIMARY KEY AUTOINCREMENT,\n" +
                 "    title varchar(255) NOT NULL,\n" +
-                "    timestamp datetime NOT NULL,\n" +
-                "    notes varchar(255) NULL\n" +
-                ");";
-
-        myDatabase.execSQL(sql);
-    }
-
-    private void createTvShowsTable() {
-        String sql = "CREATE TABLE IF NOT EXISTS tv_shows (\n" +
-                "    id INTEGER NOT NULL CONSTRAINT tv_shows_pk PRIMARY KEY AUTOINCREMENT,\n" +
-                "    title varchar(255) NOT NULL,\n" +
+                "    is_movie BOOL NOT NULL,\n" +
                 "    timestamp datetime NOT NULL,\n" +
                 "    notes varchar(255) NULL\n" +
                 ");";
@@ -78,9 +67,7 @@ public class LoadEntries extends AppCompatActivity {
         final ArrayList<String> titlesList = new ArrayList<>();
         final ArrayList<String> timestampList = new ArrayList<>();
         final ArrayList<String> notesList = new ArrayList<>();
-        String sql = "SELECT id, title, timestamp, notes FROM " +
-                "(SELECT id, title, timestamp, notes FROM tv_shows UNION " +
-                "SELECT id, title, timestamp, notes FROM movies) AS entries ORDER BY title ASC";
+        String sql = "SELECT id, title, timestamp, notes FROM entry ORDER BY title ASC";
         Cursor cursor = myDatabase.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             do {

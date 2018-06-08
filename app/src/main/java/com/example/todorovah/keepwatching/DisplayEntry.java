@@ -50,7 +50,7 @@ public class DisplayEntry extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        String sql = "DELETE FROM tv_shows WHERE id = ?";
+        String sql = "DELETE FROM entry WHERE id = ?";
 
         myDatabase.execSQL(sql, new String[]{currentId.toString()});
         Toast.makeText(this, "Deleted!", Toast.LENGTH_SHORT).show();

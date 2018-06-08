@@ -54,18 +54,18 @@ public class AddNewRecord extends AppCompatActivity implements View.OnClickListe
         String notes = notesText.getText().toString().trim();
 
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
         String timestamp = sdf.format(cal.getTime());
 
         int radioButtonId = radioGroup.getCheckedRadioButtonId();
         if(radioButtonId == R.id.movieButton){
-            String sql = "INSERT INTO movies(title, timestamp, notes)" +
-                    "VALUES(?, ?, ?);";
+            String sql = "INSERT INTO entry(title, timestamp, notes, is_movie)" +
+                    "VALUES(?, ?, ?, 1);";
             myDatabase.execSQL(sql, new String[]{title, timestamp,notes});
             Toast.makeText(this, "Movie saved!", Toast.LENGTH_SHORT).show();
         } else {
-            String sql = "INSERT INTO tv_shows(title, timestamp, notes)" +
-                    "VALUES(?, ?, ?);";
+            String sql = "INSERT INTO entry(title, timestamp, notes, is_movie)" +
+                    "VALUES(?, ?, ?, 0);";
             myDatabase.execSQL(sql, new String[]{title, timestamp,notes});
             Toast.makeText(this, "TV show saved!", Toast.LENGTH_SHORT).show();
 
