@@ -28,6 +28,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.todorovah.keepwatching.LoadEntries" />
         </activity>
+        <activity
+            android:name=".DisplayEntry"
+            android:label="@string/title_activity_display_entry"
+            android:parentActivityName=".LoadEntries"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.todorovah.keepwatching.LoadEntries" />
+        </activity>
     </application>
 
 </manifest>
