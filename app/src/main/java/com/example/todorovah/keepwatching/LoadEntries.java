@@ -18,7 +18,7 @@ import android.widget.ListView;
 public class LoadEntries extends AppCompatActivity {
 
     public static final String DATABASE_NAME = "notes";
-    public static final String ENTRY_NAME = "ENTRY_NAME";
+    public static final String ENTRY_TITLE = "ENTRY_TITLE";
     public static final String ENTRY_TIMESTAMP = "ENTRY_TIMESTAMP";
     public static final String ENTRY_NOTES = "ENTRY_NOTES";
 
@@ -73,18 +73,18 @@ public class LoadEntries extends AppCompatActivity {
     private void getAllEntries() {
         myListView = findViewById(R.id.contentsListView);
 
-        final ArrayList<String> contentList = new ArrayList<>();
+        final ArrayList<String> titlesList = new ArrayList<>();
         String sql = "SELECT title FROM " +
                 "(SELECT title FROM tv_shows UNION " +
                 "SELECT title FROM movies) AS entries ORDER BY title ASC";
         Cursor cursor = myDatabase.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             do {
-                contentList.add(cursor.getString(0));
+                titlesList.add(cursor.getString(0));
             } while (cursor.moveToNext());
         }
 
-        listAdapter = new ArrayAdapter<>(this, R.layout.database_entry_view, contentList);
+        listAdapter = new ArrayAdapter<>(this, R.layout.database_entry_view, titlesList);
         myListView.setAdapter(listAdapter);
 
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -95,7 +95,7 @@ public class LoadEntries extends AppCompatActivity {
                 // send all fields as parameters
 
                 Intent intent = new Intent(view.getContext(), DisplayEntry.class);
-                intent.putExtra(ENTRY_NAME, contentList.get(i));
+                intent.putExtra(ENTRY_TITLE, titlesList.get(i));
                 startActivity(intent);
                 return;
             }

@@ -1,11 +1,8 @@
 package com.example.todorovah.keepwatching;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 public class DisplayEntry extends AppCompatActivity {
 
@@ -18,7 +15,7 @@ public class DisplayEntry extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        String entryName = getIntent().getStringExtra(LoadEntries.ENTRY_NAME);
+        String entryTitle = getIntent().getStringExtra(LoadEntries.ENTRY_TITLE);
         return;
     }
 
