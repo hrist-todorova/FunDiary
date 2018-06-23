@@ -20,12 +20,12 @@ import com.android.volley.toolbox.Volley;
 import android.util.Log;
 import org.json.JSONObject;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 
 public class DisplayEntry extends AppCompatActivity implements View.OnClickListener{
 
     TextView printTitle, printTimestamp, printNotes, genre;
-    String poster;
     Button deleteButton;
     SQLiteDatabase myDatabase;
     Integer currentId;
@@ -76,9 +76,8 @@ public class DisplayEntry extends AppCompatActivity implements View.OnClickListe
                     public void onResponse(JSONObject response) {
                         Gson gson = new Gson();
                         Entry entry =  gson.fromJson(response.toString(), Entry.class);
-                        poster = entry.Poster;
-
                         genre.setText(entry.Genre);
+                        loadImageFromURL(entry.Poster);
                     }
                 },
                 new Response.ErrorListener() {
@@ -91,8 +90,23 @@ public class DisplayEntry extends AppCompatActivity implements View.OnClickListe
 
         requestQueue.add(objectRequest);
 
+
         return;
     }
+
+    private void loadImageFromURL(String url) {
+        Picasso.with(this).load(url).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(imageView, new com.squareup.picasso.Callback(){
+            @Override
+            public void onSuccess() {
+
+            }
+            @Override
+            public void onError() {
+
+            }
+        });
+    }
+
 
     @Override
     public void onClick(View view) {
