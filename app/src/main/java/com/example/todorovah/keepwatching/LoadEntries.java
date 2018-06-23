@@ -48,6 +48,12 @@ public class LoadEntries extends AppCompatActivity {
         getAllEntries();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getAllEntries();
+    }
+
     private void createEntryTable() {
         String sql = "CREATE TABLE IF NOT EXISTS entry (\n" +
                 "    id INTEGER NOT NULL CONSTRAINT movies_pk PRIMARY KEY AUTOINCREMENT,\n" +

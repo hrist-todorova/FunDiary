@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Handler;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -116,6 +117,7 @@ public class DisplayEntry extends AppCompatActivity implements View.OnClickListe
 
         myDatabase.execSQL(sql, new String[]{currentId.toString()});
         Toast.makeText(this, "Deleted!", Toast.LENGTH_SHORT).show();
+        super.onBackPressed();
     }
 
 }
