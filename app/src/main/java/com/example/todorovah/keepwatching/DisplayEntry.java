@@ -7,15 +7,29 @@ import android.support.v7.widget.Toolbar;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import android.util.Log;
+import org.json.JSONObject;
+import com.google.gson.Gson;
+
+
 public class DisplayEntry extends AppCompatActivity implements View.OnClickListener{
 
-    TextView printTitle, printTimestamp, printNotes;
+    TextView printTitle, printTimestamp, printNotes, genre;
+    String poster;
     Button deleteButton;
     SQLiteDatabase myDatabase;
     Integer currentId;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +59,38 @@ public class DisplayEntry extends AppCompatActivity implements View.OnClickListe
         deleteButton = findViewById(R.id.buttonDeleteEntry);
         deleteButton.setOnClickListener(this);
 
+        genre = findViewById(R.id.genreID);
+        imageView = findViewById(R.id.posterID);
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        String title = entryTitle.replace(" ", "+");
+        String URL = "http://www.omdbapi.com/?apikey=ea938712&r=json&t=" + title;
+
+        JsonObjectRequest objectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                URL,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Gson gson = new Gson();
+                        Entry entry =  gson.fromJson(response.toString(), Entry.class);
+                        poster = entry.Poster;
+
+                        genre.setText(entry.Genre);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("REST response", error.toString());
+                    }
+                }
+        );
+
+        requestQueue.add(objectRequest);
+
         return;
     }
 
@@ -56,6 +102,9 @@ public class DisplayEntry extends AppCompatActivity implements View.OnClickListe
         Toast.makeText(this, "Deleted!", Toast.LENGTH_SHORT).show();
     }
 
+}
 
-
+class Entry {
+    String Genre;
+    String Poster;
 }

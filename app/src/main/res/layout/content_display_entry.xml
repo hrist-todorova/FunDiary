@@ -48,14 +48,37 @@
 
     <TextView
         android:id="@+id/printNotes"
-        android:layout_width="343dp"
+        android:layout_width="182dp"
         android:layout_height="280dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/printTimestamp" />
+
+    <ImageView
+        android:id="@+id/posterID"
+        android:layout_width="155dp"
+        android:layout_height="217dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonDeleteEntry"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/printNotes"
+        app:layout_constraintTop_toBottomOf="@+id/genreID"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/genreID"
+        android:layout_width="141dp"
+        android:layout_height="57dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/printNotes"
         app:layout_constraintTop_toBottomOf="@+id/printTimestamp" />
 
 </android.support.constraint.ConstraintLayout>
