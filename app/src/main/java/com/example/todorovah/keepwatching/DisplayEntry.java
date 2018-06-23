@@ -25,7 +25,7 @@ import com.squareup.picasso.Picasso;
 
 public class DisplayEntry extends AppCompatActivity implements View.OnClickListener{
 
-    TextView printTitle, printTimestamp, printNotes, genre;
+    TextView printTitle, printTimestamp, printNotes, genre, plot;
     Button deleteButton;
     SQLiteDatabase myDatabase;
     Integer currentId;
@@ -61,6 +61,7 @@ public class DisplayEntry extends AppCompatActivity implements View.OnClickListe
 
         genre = findViewById(R.id.genreID);
         imageView = findViewById(R.id.posterID);
+        plot = findViewById(R.id.plotID);
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -77,6 +78,7 @@ public class DisplayEntry extends AppCompatActivity implements View.OnClickListe
                         Gson gson = new Gson();
                         Entry entry =  gson.fromJson(response.toString(), Entry.class);
                         genre.setText(entry.Genre);
+                        plot.setText(entry.Plot);
                         loadImageFromURL(entry.Poster);
                     }
                 },
@@ -121,4 +123,5 @@ public class DisplayEntry extends AppCompatActivity implements View.OnClickListe
 class Entry {
     String Genre;
     String Poster;
+    String Plot;
 }
