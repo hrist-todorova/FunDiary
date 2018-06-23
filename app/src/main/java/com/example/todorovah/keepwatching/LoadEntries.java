@@ -67,7 +67,7 @@ public class LoadEntries extends AppCompatActivity {
         final ArrayList<String> titlesList = new ArrayList<>();
         final ArrayList<String> timestampList = new ArrayList<>();
         final ArrayList<String> notesList = new ArrayList<>();
-        String sql = "SELECT id, title, timestamp, notes FROM entry ORDER BY title ASC";
+        String sql = "SELECT id, title, timestamp, notes FROM entry ORDER BY id DESC";
         Cursor cursor = myDatabase.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             do {

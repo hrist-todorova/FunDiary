@@ -24,10 +24,10 @@
 
     <TextView
         android:id="@+id/printTitile"
-        android:layout_width="342dp"
-        android:layout_height="31dp"
+        android:layout_width="354dp"
+        android:layout_height="33dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,19 +36,17 @@
 
     <TextView
         android:id="@+id/printTimestamp"
-        android:layout_width="342dp"
-        android:layout_height="29dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="213dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/printTitile" />
 
     <TextView
         android:id="@+id/printNotes"
-        android:layout_width="182dp"
+        android:layout_width="117dp"
         android:layout_height="280dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -58,8 +56,8 @@
 
     <ImageView
         android:id="@+id/posterID"
-        android:layout_width="155dp"
-        android:layout_height="217dp"
+        android:layout_width="187dp"
+        android:layout_height="270dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
@@ -72,13 +70,13 @@
 
     <TextView
         android:id="@+id/genreID"
-        android:layout_width="141dp"
-        android:layout_height="57dp"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/printNotes"
-        app:layout_constraintTop_toBottomOf="@+id/printTimestamp" />
+        app:layout_constraintStart_toEndOf="@+id/printTimestamp"
+        app:layout_constraintTop_toBottomOf="@+id/printTitile" />
 
 </android.support.constraint.ConstraintLayout>
